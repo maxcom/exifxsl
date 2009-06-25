@@ -7,6 +7,8 @@ import org.w3c.dom.Attr;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
+import java.util.Calendar;
 
 import com.drew.metadata.Metadata;
 import com.drew.metadata.Directory;
@@ -79,7 +81,12 @@ public class ExifXsl {
     document.getDocumentElement().appendChild(exposure);
 
     Element date = document.createElement("date");
-    date.appendChild(document.createTextNode(exifDirectory.getDate(ExifDirectory.TAG_DATETIME_ORIGINAL).toString()));
+    Date originalDate = exifDirectory.getDate(ExifDirectory.TAG_DATETIME_ORIGINAL);
+    date.appendChild(document.createTextNode(originalDate.toString()));
+
+    long age = (System.currentTimeMillis()-originalDate.getTime())/(1000*60*60*24);
+
+    date.setAttribute("age", Long.toString(age));
     document.getDocumentElement().appendChild(date);
 
     Element lens = document.createElement("lens");
