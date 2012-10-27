@@ -13,7 +13,6 @@ import com.drew.metadata.iptc.IptcDirectory;
 import com.drew.metadata.jpeg.JpegDirectory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import ru.org.linux.util.BadImageException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,7 +28,7 @@ public class ExifXsl {
   private ExifIFD0Directory exifIfd0Directory;
   private JpegDirectory jpegDirectory;
 
-  public ExifXsl(String filename) throws JpegProcessingException, IOException, BadImageException {
+  public ExifXsl(String filename) throws JpegProcessingException, IOException {
     // System.out.println(filename);
 
     File jpegFile = new File(filename);
