@@ -105,7 +105,10 @@ public class ExifXsl {
       double lattitude = lat[0].doubleValue() + lat[1].doubleValue()/60 + lat[2].doubleValue()/3600;
       double longitude = lon[0].doubleValue() + lon[1].doubleValue()/60 + lon[2].doubleValue()/3600;
 
-      gps.setAttribute("alt", gpsDirectory.getRational(GpsDirectory.TAG_GPS_ALTITUDE).toSimpleString(true));
+      if (gpsDirectory.containsTag(GpsDirectory.TAG_GPS_ALTITUDE)) {
+        gps.setAttribute("alt", gpsDirectory.getRational(GpsDirectory.TAG_GPS_ALTITUDE).toSimpleString(true));
+      }
+
       gps.setAttribute("latitude", Double.toString(lattitude));
       gps.setAttribute("longitude", Double.toString(longitude));
 
@@ -132,5 +135,9 @@ public class ExifXsl {
 
   public int getHeight() throws MetadataException {
     return jpegDirectory.getInt(JpegDirectory.TAG_JPEG_IMAGE_HEIGHT);
+  }
+
+  public static void main(String[] args) throws JpegProcessingException, IOException, MetadataException, ParserConfigurationException {
+    new ExifXsl(args[0]).getExif();
   }
 }
